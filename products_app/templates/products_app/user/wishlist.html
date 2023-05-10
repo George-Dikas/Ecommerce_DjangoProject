@@ -1,0 +1,53 @@
+{% extends 'products_app/base.html' %}
+
+{% block title %}Wishlist{% endblock %}
+
+{% block content %}
+    <div class="col-md-10 mx-auto">
+        <h2 class="text-center">Wishlist</h2><hr> 
+    </div>
+    
+    <div class="col-md-9 mx-auto">
+        <div class="card shadow">
+            <div class="card-body">
+
+                {% if wishlist_books %}
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-4">
+                            <h5>Title</h5>
+                        </div>
+                        <div class="col-md-4">
+                            <h5>Price</h5>
+                        </div>
+                        <hr>
+                    </div>
+
+                    {% for book in page_obj %}
+                        <div class="row">
+                            <div class="col-md-2 my-auto">
+                                <img src="{{book.product.image.url}}" alt="Image" width="60px" height="60px">
+                            </div>
+                            <div class="col-md-4 my-4">
+                                {{book.product.title}} 
+                            </div>
+                            <div class="col-md-2 my-4">
+                                {{book.product.price}} €
+                            </div>
+                            <div class="col-md-3 offset-md-1 my-auto">
+                                <a href="{% url 'removeWishlist' book.product.id %}" class="btn btn-danger">
+                                    <i class="far fa-trash-alt"> Remove from Wishlist</i>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    {% include 'products_app/books/paginator.html' %}
+
+                {% else %} 
+                    <h4 class="text-center">{{message}}</h4>
+                {% endif %}
+            </div>
+        </div>
+    </div>   
+{% endblock %}

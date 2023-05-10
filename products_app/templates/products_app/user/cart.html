@@ -1,0 +1,85 @@
+{% extends 'products_app/base.html' %}
+{% load static %}
+
+{% block title %}Cart{% endblock %}
+
+{% block content %}
+    <div class="col-md-10 mx-auto">
+        <h2 class="text-center">Cart</h2><hr> 
+    </div>
+    
+    <div class="col-md-9 mx-auto">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-4">
+                                <h5>Title</h5>
+                            </div>
+                            <div class="col-md-2">
+                                <h5>Price</h5>
+                            </div>
+                            <div class="col-md-3">
+                                <h5>Quantity</h5>
+                            </div>
+                            <div class="col-md-2">
+                                <h5>Total</h5>
+                            </div>
+                            <hr>
+                        </div>
+
+                        {% if cart_books %}
+                            {% for book in cart_books %}
+                                <div class="row">
+                                    <div class="col-md-1 my-auto">
+                                        <img src="{{book.product.image.url}}" alt="Image" width="30px" height="30px">
+                                    </div>
+                                    <div class="col-md-4 my-2">{{book.product.title}}</div>
+                                    <div class="col-md-2 my-2">{{book.product.price}}</div>
+                                    <div class="col-md-3 my-1">
+                                        <a class="minus-quantinty btn" pid="{{book.id}}"><i class="fas fa-minus-square"></i></a>
+                                        <span>{{book.quantity}}</span>
+                                        <a class="plus-quantity btn" pid="{{book.id}}"><i class="fas fa-plus-square"></i></a>
+                                        <button type="button" class="remove-cart btn btn-link btn-sm text-danger" id="{{book.id}}">
+                                            <i class="far fa-trash-alt"></i>
+                                        </button>
+                                    </div>
+                                    <div class="col-md-2 my-2">{{book.total_cost}} €</div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="text-center">Total Amount</h5><hr>
+
+                        <div class="row">
+                            <p class="col-md-6">Amount</p> 
+                            <p class="amount col-md-6 text-end">{{amount}} €</p>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-6">Shipping</p> 
+                            <p class="shipping col-md-6 text-end">{{shipping}} €</p>
+                        </div>
+                        <div class="row">
+                            <p class="col-md-6"><b>Total</b></p> 
+                            <p class="total_amount col-md-6 text-end">{{total_amount}} €</p>
+                        </div>
+                            
+                        <a href="{% url 'checkout' %}" class="checkout btn btn-primary w-100 mt-1
+                        {% if not amount %} disabled {% endif %}">Checkout</a>    
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="{% static 'products_app/js/cart.js' %}"></script>
+{% endblock %}

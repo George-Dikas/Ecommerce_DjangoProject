@@ -1,0 +1,43 @@
+{% extends 'products_app/base.html' %}
+{% load static %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+    <div class="col-md-10 mx-auto">
+        <h2 class="text-center">Profile</h2><hr> 
+    </div>
+    <div class="col-md-7 mx-auto">
+        <div class="card shadow">
+            <div class="card-body">
+                <div class="row">
+
+                    <div class ="col-md-6 border-end pt-2">
+                        <p><b>Firstname:</b>{{user.first_name}}</p>
+                        <p><b>Lastname:</b>{{user.last_name}}</p>
+                        <p><b>Username:</b>{{user.username}}</p>
+                        <p><b>Email:</b>{{user.email}}</p> 
+                    </div>
+
+                    <div class="col-md-4 offset-md-2 pt-3">
+                        <p><button type="button" id="editProf" class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" 
+                        data-bs-target="#editProfile"> Edit Profile </button></p>
+
+                        <p><button type="button" id="changePass" class="btn btn-outline-primary btn-sm w-100" data-bs-toggle="modal" 
+                        data-bs-target="#changePassword"> Change Password </button></p>
+
+                        <a href="{% url 'delProfile' %}" class="btn btn-outline-danger btn-sm w-100" 
+                        onclick="return confirm('Are you sure you want to delete your profile?');"> Delete Profile 
+                        </a>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% include 'products_app/user/modals/updateProfile_form.html'%}
+    {% include 'products_app/user/modals/changePassword_form.html'%}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="{% static 'products_app/js/resetForm.js' %}"></script>
+{% endblock %}

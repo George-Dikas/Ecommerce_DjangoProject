@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie-edge">
+
+        <style>
+            .header { 
+                background-color: #6b8e94;
+                font-family:"Courier New";
+                color: white;
+                font-size: 18px;
+                padding: 10px 50px;    
+            }
+
+            .main {
+                border: 1px solid #eef4f5;
+                border-radius: 5px;
+                border-width: 2px;
+                background-color: white;
+                font-family:"Courier New";
+                text-align: center;
+                width: 80%;
+                margin:10px auto;
+            }
+
+            p {
+                font-size: 14px;
+                font-weight: normal;
+                text-align: left;
+                text-indent: 100px;
+            }
+
+            .footer { 
+                background-color: #6b8e94;
+                font-family:"Courier New";
+                color: #8b1515;
+                text-align: center;
+                padding: 15px;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <div class="header">
+            <span>Hi, {{firstname}}. Thank you for your recent purchase. We are honored to gain you as a customer and 
+            hope to serve you for a long time.</span>
+        </div>
+
+        <div class="main">
+            <h2>Shipping Information</h2><hr style="width: 80%;">
+            <p><b>Firstname:</b> {{firstname}}</p>
+            <p><b>Lastname:</b> {{lastname}}</p>
+            <p><b>Email:</b> {{email}}</p>
+            <p><b>Phone Number:</b> {{phone}}</p>
+            <p><b>Adress:</b> {{address}}</p>
+            <p><b>City:</b> {{city}}</p>
+            <p><b>Zipcode:</b> {{zipcode}}</p><br>
+            
+            <h2>Order Summary - {{transaction_id}}</h2><hr style="width: 80%;">  
+            
+            {% for book in cart_books %}
+                <p>
+                    <span>{{book.product.title}}</span>
+                    <span>X{{book.quantity}}</span>
+                    <span>{{book.total_cost}} €</span>
+                </p>
+            {% endfor %}
+            <br>
+            <hr><p><b>Total: {{total_amount}}€</b> (20€ including shipping fee)</p>
+        </div>
+        
+        <div class="footer">
+            Copyright © 2023 || Designed and developed by Dikas Georgios
+        </div>
+    </body>
+</html>

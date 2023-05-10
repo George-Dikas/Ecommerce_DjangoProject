@@ -1,0 +1,41 @@
+{% load crispy_forms_tags %}
+<!-- Update Profile Form Modal -->
+
+<div class="modal fade" id="editProfile" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Edit Profile</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <form action="{% url 'profile' %}" id="updateProfile" method="post">
+                {% csrf_token %}
+               
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        {{formUpdate.first_name|as_crispy_field}} 
+                    </div>
+
+                    <div class=" row mb-3">
+                        {{formUpdate.last_name|as_crispy_field}} 
+                    </div>
+
+                    <div class="row mb-3">
+                        {{formUpdate.username|as_crispy_field}} 
+                    </div>
+
+                    <div class="row mb-3">
+                        {{formUpdate.email|as_crispy_field}} 
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-secondary">Reset</button>
+                    <button type="submit" name="subProfile" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+</div>

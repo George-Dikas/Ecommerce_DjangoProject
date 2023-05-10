@@ -1,0 +1,81 @@
+{% extends 'products_app/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+    <div class="col-md-10 mx-auto">
+        <h2 class="text-center">Checkout</h2><hr> 
+    </div>
+    
+    <div class="col-md-9 mx-auto">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="text-center">Shipping Information</h5><hr>
+                        <form action="{% url 'checkout' %}" method="post">
+                            {% csrf_token %}
+                            
+                            <div class="row mb-2">
+                                <div class="col-md-6">
+                                    {{form.firstname|as_crispy_field}} 
+                                </div>
+                                <div class="col-md-6">
+                                    {{form.lastname|as_crispy_field}} 
+                                </div>
+                            </div>
+            
+                            <div class="row mb-2">
+                                <div class="col-md-7">
+                                    {{form.email|as_crispy_field}} 
+                                </div>
+                                <div class="col-md-5">
+                                    {{form.phone|as_crispy_field}} 
+                                </div>
+                            </div>
+
+                            <div class="row mb-2">
+                                {{form.address|as_crispy_field}} 
+                            </div>
+
+                            <div class="row mb-2">
+                                <div class="col-md-7">
+                                    {{form.city|as_crispy_field}} 
+                                </div>
+                                <div class="col-md-5">
+                                    {{form.zipcode|as_crispy_field}} 
+                                </div>
+                            </div>
+                            
+                            <input type="submit" class="btn btn-primary w-100 mt-1" value="Proceed To Payment">
+                        </form>   
+                    </div>
+                </div>  
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <div class="row">
+                            <h5 class="col-md-7 my-2 text-center">Order Summary</h5>
+                            <a href="{% url 'cart' %}" class="col-md-4 btn btn-success">Update Cart</a>
+                        </div><hr>
+
+                        {% for book in cart_books %}
+                            <div class="row">
+                                <div class="col-md-1 my-2">
+                                    <img src="{{book.product.image.url}}" alt="Image" width="30px" height="30px">
+                                </div>
+                                <div class="col-md-6 my-1">{{book.product.title}}</div>
+                                <div class="col-md-2 my-1 text-center">X{{book.quantity}}</div>
+                                <div class="col-md-3 my-1">{{book.total_cost}} €</div>
+                            </div>
+                        {% endfor %}
+                        <hr><p><b>Total: {{total_amount}}€</b> (20€ including shipping fee)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

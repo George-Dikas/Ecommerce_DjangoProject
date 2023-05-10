@@ -1,0 +1,45 @@
+<!-- Order Info Modal -->
+
+<div class="modal fade" id="orderInfo{{order.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">{{order}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            {% for key, value in myOrdersDict.items %}
+                {% if key == order %} 
+                    {% for key2, value2 in value.items %}
+                        {% if key2 == 'order_items' %} 
+                            
+                            <div class="modal-body">
+                                {% for orderItem in value2 %}
+                                    <div class="row">
+                                        <div class="col-md-1 my-2">
+                                            <img src="{{orderItem.product.image.url}}" alt="Image" width="30px" height="30px">
+                                        </div>
+                                        <div class="col-md-6 my-1">{{orderItem.product.title}}</div>
+                                        <div class="col-md-2 my-1 text-center">X{{orderItem.quantity}}</div>
+                                        <div class="col-md-3 my-1 text-end">{{orderItem.total_cost}} €</div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            
+                        {% else %}
+
+                            <div class="modal-footer">
+                                {% if order.status != 'Canceled' %}
+                                    <a href="{% url 'cancelation' order.id %}" class="btn btn-danger btn-sm" style="margin-right:217px;">
+                                    Cancelation</a>
+                                {% endif %}  
+                                <p><b>Total: {{value2}} €</b></p>
+                            </div>
+
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endfor %} 
+        </div>
+    </div>
+</div>
