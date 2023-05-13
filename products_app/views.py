@@ -68,12 +68,17 @@ class signInUp(View):
 
 class profile(View):
     def get(self, request):
-        cartNum = cartTotal(request)
-        wishNum = wishlistTotal(request)
-        user = request.user
-        formUpdate = UpdateForm(instance=user)
-        formPassword = PasswordChangeForm(user)
-        return render(request, 'products_app/user/profile.html', locals())
+        if request.user.is_authenticated:
+            cartNum = cartTotal(request)
+            wishNum = wishlistTotal(request)
+            user = request.user
+            formUpdate = UpdateForm(instance=user)
+            formPassword = PasswordChangeForm(user)
+            return render(request, 'products_app/user/profile.html', locals())
+
+        else:
+            messages.warning(request, 'You must be logged in to see your profile.')
+            return redirect('signInUp')
         
     def post(self, request):
         if 'subProfile' in request.POST:
@@ -157,26 +162,31 @@ def search(request):
     return render(request, 'products_app/books/search.html', locals())
 
 def orders(request):
-    cartNum = cartTotal(request)
-    wishNum = wishlistTotal(request) 
-    my_orders = Order.objects.filter(user=request.user)
-    
-    if my_orders:
-        myOrdersDict = {}
-        amount = 0
-        page_obj = pagination(request, my_orders, 7)
+    if request.user.is_authenticated:
+        cartNum = cartTotal(request)
+        wishNum = wishlistTotal(request) 
+        my_orders = Order.objects.filter(user=request.user)
         
-        for order in my_orders:
-            myOrdersDict[order] = {}
-            myOrdersDict[order]['order_items'] = OrderItem.objects.filter(order=order)
+        if my_orders:
+            myOrdersDict = {}
+            amount = 0
+            page_obj = pagination(request, my_orders, 7)
             
-            for orderItem in myOrdersDict[order]['order_items']: 
-                amount += orderItem.total_cost
+            for order in my_orders:
+                myOrdersDict[order] = {}
+                myOrdersDict[order]['order_items'] = OrderItem.objects.filter(order=order)
+                
+                for orderItem in myOrdersDict[order]['order_items']: 
+                    amount += orderItem.total_cost
 
-            myOrdersDict[order]['total_amount'] = amount + 20    
-            amount = 0   
-    
-    return render(request, 'products_app/user/orders.html', locals())
+                myOrdersDict[order]['total_amount'] = amount + 20    
+                amount = 0   
+        
+        return render(request, 'products_app/user/orders.html', locals())
+
+    else:
+        messages.warning(request, 'You must be logged in to see your orders.')
+        return redirect('signInUp')
 
 def cancelation(request, order_id):
     order = Order.objects.get(id=order_id)
