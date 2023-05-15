@@ -2,11 +2,18 @@
 ## Description
 With Ecommerce_DjangoProject 
 * a  guest user can:
+    - see all books of each category
+    - search for books
+    - add books to cart and make orders
+    - send contact messages
 
 * registered user can:
-* create an account as a Library User, or as an Author, or as a Publisher
-* as a Library User a user can: 
-  - see all the published books
+  - everything that a guest user can
+  - add books to his/her wishlist
+  - edit or delete his/her profile
+  - change his/her password
+
+  
   - add a book to favourite or remove it
   - see all his/her favourite books
   - rate a book
