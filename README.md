@@ -5,7 +5,7 @@ With Ecommerce_DjangoProject
     - see all books of each category
     - search for books
     - add books to cart and make orders
-    - send contact messages
+    - send contact messages 
 
 * registered user can:
   - everything that a guest user can
