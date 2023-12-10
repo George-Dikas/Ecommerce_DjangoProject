@@ -20,7 +20,7 @@ With Ecommerce_DjangoProject
 * Fontawesome 5.15.4
 ## Use Project Locally:
 * Project Folder and Virtual Environment:		
-  - Open Visual Code Studio
+  - Open Visual Studio Code
   - Launch Profile/Command Prompt																										
   - Go to this path: C:\Users\User\Desktop																					
   - Create a folder for the project: C:\Users\User\Desktop>mkdir Ecommerce_DjangoProject								
@@ -33,7 +33,7 @@ With Ecommerce_DjangoProject
   - (myenv) C:\Users\User\Desktop\Ecommerce_DjangoProject>cd ecommerce_project		
 * Download Project:
   - Code/Download Zip
-  - Extract folder and put it into Ecommerce_DjangoProject file
+  - Extract folder and put it into Ecommerce_DjangoProject folder
   - Change folder's name Ecommerce_DjangoProject-master into ecommerce_project
   - (myenv) C:\Users\User\Desktop\Ecommerce_DjangoProject>cd ecommerce_project
 * Run Project: 
